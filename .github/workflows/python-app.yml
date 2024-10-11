@@ -1,7 +1,6 @@
 name: Python application
 
 on:
-  # masterブランチやプルリクエストが発生した際に実行
   push:
     branches: [ main ]
   pull_request:
@@ -13,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        python-version: [3.8, 3.9, 3.10, 3.11]  # テストするPythonのバージョンを指定
+        python-version: [3.8, 3.9, 3.10, 3.11]  # 正しいPythonバージョン
 
     steps:
       - name: Check out the code
@@ -32,11 +31,3 @@ jobs:
       - name: Run tests with pytest
         run: |
           pytest --cov=app
-          
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./coverage.xml
-          flags: unittests
-          name: codecov-umbrella
